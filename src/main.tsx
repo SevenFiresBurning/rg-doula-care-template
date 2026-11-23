@@ -1,0 +1,16 @@
+import React from 'react';
+import { createRoot, hydrateRoot } from 'react-dom/client';
+import App from './App';
+import { applyTheme } from './theme';
+import { renderHead } from './seo';
+import './styles.css';
+import './atmosphere.css';
+applyTheme();
+const path = window.location.pathname.replace(/\/$/, '') || '/';
+const servedPath = document.documentElement.dataset.route;
+const fallbackPage = !!servedPath && servedPath !== path;
+if (fallbackPage) document.head.querySelectorAll('title[data-site-seo],meta[name="description"],meta[name="robots"],link[rel="canonical"],meta[property^="og:"],meta[name="twitter:card"],script[type="application/ld+json"]').forEach(element => element.remove());
+if (!document.querySelector('[data-site-seo]')) document.head.insertAdjacentHTML('beforeend', renderHead(path));
+const root = document.getElementById('root')!;
+const app = <React.StrictMode><App path={path}/></React.StrictMode>;
+if (root.firstElementChild && !fallbackPage) hydrateRoot(root, app); else createRoot(root).render(app);

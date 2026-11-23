@@ -28,7 +28,7 @@ npm run dev
 
 Open the local URL printed in the terminal. Opening `index.html` as a `file://` URL will not run React/TypeScript. To inspect production output, use `npm run build` then `npm run preview`.
 
-This repository contains the template source. Hosting and deployment are not configured.
+This repository contains the template source. The public gallery demo is published with GitHub Pages at [sevenfiresburning.github.io/rg-doula-care-template](https://sevenfiresburning.github.io/rg-doula-care-template/).
 
 ## Start with `src/config.ts`
 
@@ -92,7 +92,7 @@ The reserved placeholder `https://your-domain.example` demonstrates absolute can
 
 `public/social-preview.png` is a real 1200×630 social image. Its editable vector source is `public/social-preview.svg`. Replace both and update `seo.image`, `seo.imageAlt` for a client; keep the URL absolute after resolution against `seo.siteUrl`. To regenerate the default PNG and QA screenshots while the dev server runs on 5188, run `node scripts/capture-preview.mjs`. Google/social crawlers should use the prerendered production output, not the Vite development server.
 
-For hosting later, select static directory-index support, serve `404.html` with an HTTP 404 for unknown paths, and map `/about` to `/about/index.html` (likewise other paths). No hosting has been configured by this build. The site is intended for a domain root; subdirectory hosting requires updating Vite `base`, navigation URLs, and metadata paths.
+The GitHub Pages workflow in `.github/workflows/pages.yml` builds and deploys the demo when `codex/doula-care-template` is updated. `VITE_BASE_PATH` sets the project prefix; `VITE_SITE_URL` sets the absolute canonical/social base URL. Internal links, imagery, client routes, and prerendered metadata honor these settings. Local development still defaults to `/`. For another host, select static directory-index support and serve `404.html` with an HTTP 404 for unknown paths.
 
 ## Verification
 

@@ -1,6 +1,6 @@
 import { site, enabledServices, routes, activeFAQs } from './config';
 const escape = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-export const absoluteUrl = (path: string) => new URL(path, site.seo.siteUrl).href;
+export const absoluteUrl = (path: string) => new URL(path.replace(/^\//, ''), `${site.seo.siteUrl.replace(/\/$/, '')}/`).href;
 export function renderHead(path: string) {
   const resource = path.startsWith('/resources/') ? site.resources.find(item => path === `/resources/${item.slug}`) : undefined;
   const meta = site.pageMeta[path as keyof typeof site.pageMeta];

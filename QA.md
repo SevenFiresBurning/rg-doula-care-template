@@ -34,4 +34,6 @@ The dark visual revision preserves the route and service architecture. `faithTon
 
 The form endpoint and booking URL are unset, testimonials and credentials are empty, identity/location remain bracketed placeholders, and resources are unpublished starter content. The reserved canonical domain is `https://your-domain.example`. Robots and page metadata prevent indexing until configured for a real client.
 
-No real endpoint delivery, scheduling service, public host, real-device Safari/Firefox behavior, manual screen-reader audit, or Lighthouse lab score is claimed. This repository provides template source; hosting and deployment are not configured.
+No real endpoint delivery, scheduling service, real-device Safari/Firefox behavior, manual screen-reader audit, or Lighthouse lab score is claimed. The gallery demo uses GitHub Pages; its consultation form remains in explicit demo mode.
+
+The GitHub Pages build was checked under `/rg-doula-care-template/`, including all 12 prerendered routes, asset/internal-link prefixes, absolute metadata, CTA navigation, hydration, and the demo form. Root-path local development remains the default. The Pages workflow builds and deploys this repository only.

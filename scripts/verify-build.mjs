@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile, stat } from 'node:fs/promises';
 import { join } from 'node:path';
-import { site, routes, render, renderHead, themeVariables } from '../.ssr/entry-server.js';
+import { site, routes, render, renderHead, themeVariables, basePath } from '../.ssr/entry-server.js';
 for (const path of routes()) {
   const html = await readFile(join('dist', path.slice(1), 'index.html'), 'utf8');
   assert.equal((html.match(/<h1[ >]/g) || []).length, 1, `${path}: single H1`);
@@ -11,7 +11,8 @@ for (const path of routes()) {
   const json = html.match(/<script type="application\/ld\+json">(.*?)<\/script>/)?.[1];
   assert.equal(JSON.parse(json)['@context'], 'https://schema.org');
   for (const match of html.matchAll(/href="(\/[^"#?]*)/g)) {
-    const href = match[1].replace(/\/$/, '') || '/';
+    const local = basePath !== '/' && match[1].startsWith(basePath) ? `/${match[1].slice(basePath.length)}` : match[1];
+    const href = local.replace(/\/$/, '') || '/';
     if (/\.[a-z0-9]+$/i.test(href)) await stat(join('dist', href.slice(1)));
     else assert.ok(routes().includes(href), `${path}: valid internal link ${href}`);
   }
